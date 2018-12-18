@@ -80,25 +80,29 @@ class LoanPolicySettings extends React.Component {
     } = this.props;
 
     return (
-      <EntryManager
-        {...this.props}
-        parentMutator={mutator}
-        parentResources={resources}
-        entryList={_.sortBy((resources.loanPolicies || {}).records || [], ['name'])}
-        resourceKey="loanPolicies"
-        detailComponent={LoanPolicyDetail}
-        formComponent={LoanPolicyForm}
-        paneTitle={<FormattedMessage id="ui-circulation.settings.loanPolicy.paneTitle" />}
-        entryLabel={<FormattedMessage id="ui-circulation.settings.loanPolicy.entryLabel" />}
-        nameKey="name"
-        defaultEntry={defaultPolicy}
-        permissions={{
-          put: 'ui-circulation.settings.loan-policies',
-          post: 'ui-circulation.settings.loan-policies',
-          delete: 'ui-circulation.settings.loan-policies',
-        }}
-        validate={this.validate}
-      />
+      <FormattedMessage id="ui-circulation.settings.loanPolicy.entryLabel">
+        {entryLabel => (
+          <EntryManager
+            {...this.props}
+            parentMutator={mutator}
+            parentResources={resources}
+            entryList={_.sortBy((resources.loanPolicies || {}).records || [], ['name'])}
+            resourceKey="loanPolicies"
+            detailComponent={LoanPolicyDetail}
+            formComponent={LoanPolicyForm}
+            paneTitle={<FormattedMessage id="ui-circulation.settings.loanPolicy.paneTitle" />}
+            entryLabel={entryLabel}
+            nameKey="name"
+            defaultEntry={defaultPolicy}
+            permissions={{
+              put: 'ui-circulation.settings.loan-policies',
+              post: 'ui-circulation.settings.loan-policies',
+              delete: 'ui-circulation.settings.loan-policies',
+            }}
+            validate={this.validate}
+          />
+        )}
+      </FormattedMessage>
     );
   }
 }
